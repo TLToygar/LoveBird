@@ -251,6 +251,21 @@ if("ontouchstart" in window)
 else
    $(document).on("mousedown", screenClick);
 
+function unlockSoundsOnce() {
+		try {
+        soundJump.play().stop();
+        soundDie.play().stop();
+        soundHit.play().stop();
+        soundScore.play().stop();
+		} catch (e) {
+        console.log("Ses preload hatası:", e);
+    }
+    document.removeEventListener("touchstart", unlockSoundsOnce);
+    document.removeEventListener("mousedown", unlockSoundsOnce);
+}
+document.addEventListener("touchstart", unlockSoundsOnce);
+document.addEventListener("mousedown", unlockSoundsOnce);
+
 function screenClick()
 {
    if(currentstate == states.GameScreen)
